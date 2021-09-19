@@ -2,6 +2,7 @@ const body = document.querySelector('body');
 const colorsSection = document.getElementById('colors');
 const colorCode = document.getElementById('rgb-color');
 const answer = document.getElementById('answer');
+const resetButton = document.getElementById('reset-game');
 
 function getRandomColor() {
   const rNumber = Math.floor(Math.random() * 255) + 1;
@@ -50,12 +51,29 @@ function checkIfItsCorrect(e) {
   setBgColor(color);
 }
 
+function resetGame() {
+  const bgColor = colorCode.previousElementSibling;
+  const image = 'question-mark.png';
+  bgColor.style.opacity = '20%';
+  bgColor.style.backgroundImage = `url('/${image}')`;
+  bgColor.style.backgroundSize = 'cover';
+  bgColor.style.backgroundColor = '';
+  while (colorsSection.firstChild && colorsSection.children.length > 1) {
+    colorsSection.removeChild(colorsSection.firstChild);
+  }
+  generateColorOptions();
+  setColorCode();
+  answer.innerText = 'Escolha uma cor';
+}
+
 body.addEventListener('click', (e) => {
   if (e.target.classList.contains('ball') && answer.innerText === 'Escolha uma cor') {
     e.preventDefault();
     checkIfItsCorrect(e);
   }
 });
+
+resetButton.addEventListener('click', resetGame);
 
 window.onload = () => {
   generateColorOptions();

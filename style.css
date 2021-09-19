@@ -63,3 +63,27 @@ main {
   font-weight: 600;
   margin-top: 8px;
 }
+
+#button-section {
+  text-align: center;
+}
+
+#reset-game {
+  margin-top: 20px;
+  padding: 5px 7px;
+  border-radius: 10px;
+  border: 2px solid rgb(194, 52, 52);
+  color: black;
+  background-color: rgb(230, 230, 230);
+  transition-duration: 0.3s;
+}
+
+#reset-game:hover {
+  background-color: rgb(194, 52, 52);
+  color: white;
+}
+
+#reset-game:active {
+  background-color: rgb(180, 50, 50);
+  color: white;
+}
