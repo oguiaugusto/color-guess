@@ -1,0 +1,38 @@
+* {
+  margin: 0;
+  font-family: Raleway, sans-serif;
+}
+
+body {
+  width: max-content;
+  margin: auto;
+  font-size: x-large;
+  background-color: rgb(27, 27, 27);
+}
+
+#color-code-section {
+  margin-top: 30px;
+  background-color: rgb(238, 238, 238);
+  padding: 20px 50px;
+  border-radius: 20px;
+}
+
+#title {
+  margin-bottom: 20px;
+}
+
+#color-to-guess {
+  width: 60px;
+  height: 60px;
+  margin: auto;
+  border-radius: 50%;
+  border: 1px solid black;
+  background-image: url('/question-mark.png');
+  background-size: cover;
+  opacity: 10%;
+}
+
+#rgb-color {
+  margin-top: 10px;
+  text-align: center;
+}
