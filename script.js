@@ -3,6 +3,7 @@ const colorsSection = document.getElementById('colors');
 const colorCode = document.getElementById('rgb-color');
 const answer = document.getElementById('answer');
 const resetButton = document.getElementById('reset-game');
+const score = document.getElementById('score');
 
 function getRandomColor() {
   const rNumber = Math.floor(Math.random() * 255) + 1;
@@ -44,6 +45,9 @@ function checkIfItsCorrect(e) {
   const color = `rgb${colorCode.innerText}`;
   if (clicked === color) {
     answer.innerText = 'Acertou!';
+    let scoreNumber = parseInt(score.innerText, 10);
+    scoreNumber += 3;
+    score.innerText = `${scoreNumber}`;
   } else {
     answer.innerText = 'Errou! Tente novamente!';
   }
