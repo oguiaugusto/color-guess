@@ -25,11 +25,18 @@ const setColorCode = () => {
 };
 
 const revealColor = (color) => {
+  for (let i = 0; i < colorsSection.children.length; i += 1) {
+    const colorChild = colorsSection.children[i];
+    if (window.getComputedStyle(colorChild).getPropertyValue('background-color') !== color) {
+      colorChild.style.opacity = '50%';
+    }
+  }
+
   const bgColor = document.getElementById('color-to-guess');
   bgColor.style.opacity = '100%';
   bgColor.style.backgroundImage = 'none';
   bgColor.style.backgroundSize = '';
-  bgColor.style.backgroundColor = `${color}`;
+  bgColor.style.backgroundColor = color;
 };
 
 body.addEventListener('click', ({ target }) => {
@@ -42,7 +49,7 @@ body.addEventListener('click', ({ target }) => {
       answer.innerText = 'Errou! Tente novamente!';
     }
 
-    revealColor(color);
+    revealColor(`rgb${colorCode.innerText}`);
   }
 });
 
