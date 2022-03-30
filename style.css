@@ -16,6 +16,7 @@ main {
   background-color: rgb(238, 238, 238);
   padding: 20px 50px;
   border-radius: 20px;
+  width: 400px;
 }
 
 #title {
@@ -102,4 +103,17 @@ main {
   background-color: rgb(27, 27, 27);
   border-top-left-radius: 8px;
   border-bottom-left-radius: 8px;
+}
+
+@media screen and ( max-width : 520px ) {
+
+  main {
+    width: 70vw;
+    padding: 20px 30px;
+  }
+
+  .ball {
+    width: 35px;
+    height: 35px;
+  }
 }
