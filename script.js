@@ -5,79 +5,62 @@ const answer = document.getElementById('answer');
 const resetButton = document.getElementById('reset-game');
 const score = document.getElementById('score');
 
-function getRandomColor() {
-  const rNumber = Math.floor(Math.random() * 255) + 1;
-  const gNumber = Math.floor(Math.random() * 255) + 1;
-  const bNumber = Math.floor(Math.random() * 255) + 1;
+const getRandomNumber = (n) => Math.round(Math.random() * n);
 
-  const rgbColor = `rgb(${rNumber}, ${gNumber}, ${bNumber})`;
-  return rgbColor;
-}
-
-function generateColorOptions() {
+const generateColorOptions = () => {
   for (let i = 1; i <= 6; i += 1) {
     const colorOption = document.createElement('div');
-    colorOption.style.backgroundColor = getRandomColor();
+    const color = `rgb(${getRandomNumber(255)}, ${getRandomNumber(255)}, ${getRandomNumber(255)})`;
+
+    colorOption.style.backgroundColor = color;
     colorOption.className = 'ball';
     colorsSection.insertBefore(colorOption, answer);
   }
-}
+};
 
-function setColorCode() {
-  const index = Math.round(Math.random() * 5);
-  const element = colorsSection.children[index];
-  const eStyles = window.getComputedStyle(element);
-  const bgColor = eStyles.getPropertyValue('background-color');
-  const colorNumber = bgColor.substring(3, bgColor.length);
-  colorCode.innerText = `${colorNumber}`;
-}
+const setColorCode = () => {
+  const element = colorsSection.children[getRandomNumber(5)];
+  const bgColor = window.getComputedStyle(element).getPropertyValue('background-color');
+  colorCode.innerText = bgColor.substring(3, bgColor.length);
+};
 
-function setBgColor(color) {
-  const bgColor = colorCode.previousElementSibling;
+const revealColor = (color) => {
+  const bgColor = document.getElementById('color-to-guess');
   bgColor.style.opacity = '100%';
   bgColor.style.backgroundImage = 'none';
   bgColor.style.backgroundSize = '';
   bgColor.style.backgroundColor = `${color}`;
-}
+};
 
-function checkIfItsCorrect(e) {
-  const clicked = e.target.style.backgroundColor;
-  const color = `rgb${colorCode.innerText}`;
-  if (clicked === color) {
-    answer.innerText = 'Acertou!';
-    let scoreNumber = parseInt(score.innerText, 10);
-    scoreNumber += 3;
-    score.innerText = `${scoreNumber}`;
-  } else {
-    answer.innerText = 'Errou! Tente novamente!';
+body.addEventListener('click', ({ target }) => {
+  if (target.classList.contains('ball') && answer.innerText === 'Escolha uma cor') {
+    const color = target.style.backgroundColor;
+    if (color === `rgb${colorCode.innerText}`) {
+      answer.innerText = 'Acertou!';
+      score.innerText = `${parseInt(score.innerText, 10) + 3}`;
+    } else {
+      answer.innerText = 'Errou! Tente novamente!';
+    }
+
+    revealColor(color);
   }
-  colorsSection.appendChild(answer);
-  setBgColor(color);
-}
+});
 
-function resetGame() {
-  const bgColor = colorCode.previousElementSibling;
+resetButton.addEventListener('click', () => {
+  const bgColor = document.getElementById('color-to-guess');
   const image = 'question-mark.png';
+
   bgColor.style.opacity = '20%';
   bgColor.style.backgroundImage = `url('/${image}')`;
   bgColor.style.backgroundSize = 'cover';
   bgColor.style.backgroundColor = '';
-  while (colorsSection.firstChild && colorsSection.children.length > 1) {
-    colorsSection.removeChild(colorsSection.firstChild);
-  }
+
+  while (colorsSection.children.length > 1) colorsSection.removeChild(colorsSection.firstChild);
+
   generateColorOptions();
   setColorCode();
   answer.innerText = 'Escolha uma cor';
-}
-
-body.addEventListener('click', (e) => {
-  if (e.target.classList.contains('ball') && answer.innerText === 'Escolha uma cor') {
-    e.preventDefault();
-    checkIfItsCorrect(e);
-  }
 });
-
-resetButton.addEventListener('click', resetGame);
 
 window.onload = () => {
   generateColorOptions();
