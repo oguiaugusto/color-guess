@@ -19,6 +19,10 @@ main {
   width: 400px;
 }
 
+button {
+  cursor: pointer;
+}
+
 #title {
   width: max-content;
   margin: auto;
@@ -56,6 +60,11 @@ main {
   margin-right: 5px;
   border-radius: 50%;
   border: 1px solid black;
+  cursor: pointer;
+}
+
+.ball:hover {
+  box-shadow: 0 0 5px rgba(37, 37, 37, 0.25);
 }
 
 .ball:last-child {

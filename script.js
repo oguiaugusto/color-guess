@@ -27,7 +27,8 @@ const setColorCode = () => {
 const revealColor = (color) => {
   for (let i = 0; i < colorsSection.children.length; i += 1) {
     const colorChild = colorsSection.children[i];
-    if (window.getComputedStyle(colorChild).getPropertyValue('background-color') !== color) {
+    const colorBg = window.getComputedStyle(colorChild).getPropertyValue('background-color');
+    if (colorBg !== color && colorChild.classList.contains('ball')) {
       colorChild.style.opacity = '50%';
     }
   }
